@@ -1,0 +1,359 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+$fiftyPercent: 50%;
+
+@mixin transition($duration) {
+  -webkit-transition: $duration;
+  -moz-transition: $duration;
+  -o-transition: $duration;
+  transition: $duration;
+}
+
+@mixin transitionDelay($duration, $delay) {
+  -webkit-transition: $duration $delay;
+  -moz-transition: $duration $delay;
+  -o-transition: $duration $delay;
+  transition: $duration $delay;
+}
+
+@mixin twoTransitionProperty($property, $duration, $propertyTwo, $durationTwo) {
+  -webkit-transition: $property $duration $propertyTwo $durationTwo;
+  -moz-transition: $property $duration $propertyTwo $durationTwo;
+  -o-transition: $property $duration $propertyTwo $durationTwo;
+  transition: $property $duration $propertyTwo $durationTwo;
+}
+
+@mixin complexTransition($property, $duration, $delay, $propertyTwo, $durationTwo, $delayTwo) {
+  -webkit-transition: $property $duration $delay, $propertyTwo $durationTwo $delayTwo;
+  -moz-transition: $property $duration $delay, $propertyTwo $durationTwo $delayTwo;
+  -o-transition: $property $duration $delay, $propertyTwo $durationTwo $delayTwo;
+  transition: $property $duration $delay, $propertyTwo $durationTwo $delayTwo;
+}
+
+@mixin translateTransform($left, $top) {
+  -webkit-transform: translate($left, $top);
+  -moz-transform: translate($left, $top);
+  -o-transform: translate($left, $top);
+  transform: translate($left, $top);
+}
+
+@mixin translateXTransform($position) {
+  -webkit-transform: translateX($position);
+  -moz-transform: translateX($position);
+  -o-transform: translateX($position);
+  transform: translateX($position);
+}
+
+@mixin translateYTransform($position) {
+  -webkit-transform: translateY($position);
+  -moz-transform: translateY($position);
+  -o-transform: translateY($position);
+  transform: translateY($position);
+}
+
+@mixin rotateXTransform($position) {
+  -webkit-transform: rotateX($position);
+  -moz-transform: rotateX($position);
+  -o-transform: rotateX($position);
+  transform: rotateX($position);
+}
+
+@mixin transformOrigin($left, $top) {
+  -webkit-transform-origin: $left $top;
+  -moz-transform-origin: $left $top;
+  -o-transform-origin: $left $top;
+  transform-origin: $left $top;
+}
+
+@mixin border-color($top, $right, $bottom, $left) {
+  border-color: $top $right $bottom $left;
+}
+
+@mixin animation($animationName, $duration, $fillMode) {
+  -webkit-animation: $animationName $duration $fillMode;
+  -moz-animation: $animationName $duration $fillMode;
+  -o-animation: $animationName $duration $fillMode;
+  animation: $animationName $duration $fillMode;
+}
+
+@mixin delayAnimation($animationName, $duration, $delay, $fillMode) {
+  -webkit-animation: $animationName $duration $delay $fillMode;
+  -moz-animation: $animationName $duration $delay $fillMode;
+  -o-animation: $animationName $duration $delay $fillMode;
+  animation: $animationName $duration $delay $fillMode;
+}
+
+@mixin complexAnimation($animationName, $duration, $delay, $timing, $count) {
+  -webkit-animation: $animationName $duration $delay $timing $count;
+  -moz-animation: $animationName $duration $delay $timing $count;
+  -o-animation: $animationName $duration $delay $timing $count;
+  animation: $animationName $duration $delay $timing $count;
+}
+
+@keyframes animatedMail {
+  from {
+    @include translateYTransform(0);
+  }
+  to {    
+    @include translateYTransform(50px);
+  }
+}
+@keyframes topFold {
+  from {
+    @include twoTransitionProperty(transform, 0s, z-index, 0s);
+    @include rotateXTransform(0deg);
+  }
+  to {
+    @include twoTransitionProperty(transform, .4s, z-index, .2s);
+    @include rotateXTransform(180deg);
+  }
+}
+@keyframes letter {
+  from {
+    height: 0;
+  }
+  to {
+    height: 180px;
+  }
+}
+@keyframes shadow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 250px;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+body {
+  background-color: #323641;
+}
+.animated-mail,
+.shadow {
+  position: absolute;
+  @include transition(4s);
+}
+.animated-mail {
+  height: 150px;
+  .body,
+  .top-fold,
+  .back-fold,
+  .left-fold,
+  .letter {
+    position: absolute;
+  }
+  .body,
+  .back-fold,
+  .left-fold,
+  .letter {
+    bottom: 0;
+  }
+  .body,
+  .top-fold,
+  .left-fold {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 2;
+  }
+  .body {
+    border-width: 0 0 100px 200px;
+    @include border-color(transparent, transparent, #e95f55, transparent);
+  }
+  .top-fold {
+    top: 50px;
+    border-width: 50px 100px 0 100px;
+    @include complexTransition(transform, .4s, .4s, z-index, .2s, .4s);
+    @include transformOrigin($fiftyPercent, 0%);
+    @include border-color(#cf4a43, transparent, transparent, transparent);
+  }
+  .back-fold {
+    width: 200px;
+    height: 100px;
+    background-color: #cf4a43;
+    z-index: 0;
+  }
+  .left-fold {
+    border-width: 50px 0 50px 100px;
+    @include border-color(transparent, transparent, transparent, #e15349);
+  }
+  .letter {
+    left: 20px;
+    width: 160px;
+    height: 60px;
+    background-color: #fff;
+    z-index: 1;
+    overflow: hidden;
+    @include transitionDelay(.4s, .2s);
+    .letter-border,
+    .letter-title,
+    .letter-context {
+      height: 10px;
+    }
+    .letter-title,
+    .letter-context {
+      margin-top: 10px;
+      margin-left: 5px;
+    }
+    .letter-title,
+    .letter-context,
+    .letter-stamp {
+      background-color: #cb5a5e;
+    }
+    .letter-stamp {
+      border-radius: 100%;
+      height: 30px;
+    }
+    .letter-border {
+      width: 100%;
+      background: repeating-linear-gradient(-45deg, #cb5a5e, #cb5a5e 8px, transparent 8px, transparent 18px);
+    }
+    .letter-title {
+      width: 40%;
+    }
+    .letter-context {
+      width: 20%;
+    }
+    .letter-stamp {
+      margin-top: 30px;
+      margin-left: 120px;
+      width: 30px;
+      opacity: .3;
+    }
+  }
+}
+.wedding-invitation {
+  .scanned-img,
+  .floating-gmaps,
+  .more-info {
+    opacity: 0;
+  }
+  .floating-gmaps,
+  .more-info {
+    position: fixed;
+    bottom: 20px;
+  }
+  .scanned-img {
+    position: absolute;
+    left: $fiftyPercent;
+    height: auto;
+    top: 0;
+    @include translateTransform(- $fiftyPercent, 0);
+    @include delayAnimation(fadeIn, 2s, 2s, forwards);
+    @media (min-width: 600px) {
+      width: 75%;
+    }
+    @media (max-width: 414px) {
+      width: 100%;
+    }
+  }
+  .floating-gmaps {
+    right: 20px;
+    @include delayAnimation(fadeIn, 2s, 4s, forwards);
+  }
+  .more-info {
+    left: 20px;
+    @include delayAnimation(fadeIn, 2s, 5s, forwards);    
+  }
+}
+.image,
+.shadow {
+  left: $fiftyPercent;
+}
+.image,
+.animated-mail {
+  width: 200px;
+}
+.image {
+  height: 200px;
+  top: $fiftyPercent;
+  position: fixed;
+  @include translateTransform(- $fiftyPercent, - $fiftyPercent);
+  .animated-mail {
+    @include animation(animatedMail, .4s, forwards);
+    .top-fold {
+      z-index: 0;
+      @include animation(topFold, 1s, forwards);
+    }
+    .letter {
+      @include animation(letter, 2s, forwards);
+    }
+  }
+  .shadow {
+    @include animation(shadow, .4s, forwards);
+  }
+}
+.shadow {
+  border-radius: 100%;
+  height: 30px;
+  top: 200px;
+  width: 400px;
+  @include translateXTransform(- $fiftyPercent);
+  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+}
+.blink {
+  color: #fff;
+  text-shadow: 1px 1px 2px #333;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  @include complexAnimation(blinker, 2s, 7s, linear, 3);
+}
