@@ -4,20 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wedding Invitation</title>
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/styles.css?v=0.1.10.6">
+  <link rel="stylesheet" href="css/styles.css?v=0.1.10.14">
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+  <style>
+
+  </style>
 </head>
-<body>
-  <div class="image">
-    <div class="animated-mail">
+<body><div class="container"></div>
+  <div class="amplop">
+    <div class="amplop-animation">
       <div class="back-fold"></div>
-      <div class="letter">
-        <div class="letter-border"></div>
-        <div class="letter-title"></div>
-        <div class="letter-context"></div>
-        <div class="letter-stamp">
-          <div class="letter-stamp-inner"></div>
+      <div class="invitation">
+        <div class="frame">
+          <div class="top-right-frame"></div>
+          <div class="top-left-frame"></div>
+        </div>
+        <div class="invitation-title"></div>
+        <div class="invitation-context">
+          <div class="introduction"></div>
+          <div class="the-bride"></div>
+          <div class="with"></div>
+          <div class="the-bride"></div>
+          <div class="the-date">
+            <div class="col-date"></div>
+            <div class="col-date"></div>
+          </div>
         </div>
       </div>
       <div class="top-fold"></div>
@@ -26,14 +37,23 @@
     </div>
     <div class="shadow"></div>
   </div>
-  <div class="wedding-invitation">
-    <img src="images/scanned-wedding-invitation.jpg" alt="" class="scanned-img">
-    <a href="https://goo.gl/maps/V3Q6TwLzC2z" class="floating-gmaps">
-      <img src="images/gmaps-icon.svg" width="48" height="48" alt="">
-    </a>
-    <div class="more-info">
-      <a href="https://goo.gl/forms/f0mqPHhI7bOb1Wfh2" class="blink">More Info</a>
+  <ul class="nav nav-tabs navbar-fixed-top" role="tablist">
+    <li role="presentation" class="active"><a href="#invitationLetter" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+    <li role="presentation"><a href="https://goo.gl/forms/f0mqPHhI7bOb1Wfh2">RSVP</a></li>
+    <li role="presentation"><a href="#maps" aria-controls="messages" role="tab" data-toggle="tab">Maps</a></li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="invitationLetter">
+      <img src="images/wedding_invitation_img.jpg" alt="" class="invitation-img">
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="maps">
+      <img src="images/denah.jpg" alt="" class="invitation-img">
     </div>
   </div>
+  <a href="https://goo.gl/maps/V3Q6TwLzC2z" class="floating-gmaps">
+    <img src="images/gmaps-icon.svg" width="48" height="48" alt="">
+  </a>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

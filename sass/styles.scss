@@ -1,4 +1,13 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+// Import Bootstrap Compass integration
+@import "bootstrap-compass";
+
+// Import custom Bootstrap variables
+@import "bootstrap-variables";
+
+// Import Bootstrap for Sass
+@import "bootstrap";
+
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +21,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   margin: 0;
@@ -24,7 +33,7 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
@@ -39,15 +48,16 @@ blockquote, q {
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-  content: '';
-  content: none;
+  introduction: '';
+  introduction: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-$fiftyPercent: 50%;
+$fifty-percent: 50%;
+$base-color: #1b2b5a;
 
 @mixin transition($duration) {
   -webkit-transition: $duration;
@@ -112,8 +122,27 @@ $fiftyPercent: 50%;
   transform-origin: $left $top;
 }
 
+@mixin simpleTransform($position) {
+  -webkit-transform: rotate($position);
+  -moz-transform: rotate($position);
+  -o-transform: rotate($position);
+  transform: rotate($position);
+}
+
 @mixin border-color($top, $right, $bottom, $left) {
   border-color: $top $right $bottom $left;
+}
+
+@mixin triangleRightBorder($width, $style, $color) {
+  border-top: $width $style transparent;
+  border-bottom: $width $style transparent;
+  border-left: $width $style $color;
+}
+
+@mixin triangleLeftBorder($width, $style, $color) {
+  border-top: $width $style transparent;
+  border-bottom: $width $style transparent;
+  border-right: $width $style $color;
 }
 
 @mixin animation($animationName, $duration, $fillMode) {
@@ -141,7 +170,7 @@ $fiftyPercent: 50%;
   from {
     @include translateYTransform(0);
   }
-  to {    
+  to {
     @include translateYTransform(50px);
   }
 }
@@ -155,7 +184,7 @@ $fiftyPercent: 50%;
     @include rotateXTransform(180deg);
   }
 }
-@keyframes letter {
+@keyframes invitation {
   from {
     height: 0;
   }
@@ -185,27 +214,35 @@ $fiftyPercent: 50%;
   }
 }
 
-body {
-  background-color: #323641;
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/Roboto-Regular.ttf) format('truetype');
 }
-.animated-mail,
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.amplop-animation,
 .shadow {
   position: absolute;
   @include transition(4s);
 }
-.animated-mail {
+.amplop-animation {
   height: 150px;
   .body,
   .top-fold,
   .back-fold,
   .left-fold,
-  .letter {
+  .invitation {
     position: absolute;
   }
   .body,
   .back-fold,
   .left-fold,
-  .letter {
+  .invitation {
     bottom: 0;
   }
   .body,
@@ -218,88 +255,157 @@ body {
   }
   .body {
     border-width: 0 0 100px 200px;
-    @include border-color(transparent, transparent, #e95f55, transparent);
+    @include border-color(transparent, transparent, #28418b, transparent);
   }
   .top-fold {
     top: 50px;
     border-width: 50px 100px 0 100px;
     @include complexTransition(transform, .4s, .4s, z-index, .2s, .4s);
-    @include transformOrigin($fiftyPercent, 0%);
-    @include border-color(#cf4a43, transparent, transparent, transparent);
+    @include transformOrigin($fifty-percent, 0%);
+    @include border-color(#1b2b5a, transparent, transparent, transparent);
   }
   .back-fold {
     width: 200px;
     height: 100px;
-    background-color: #cf4a43;
+    background-color: $base-color;
     z-index: 0;
   }
   .left-fold {
     border-width: 50px 0 50px 100px;
-    @include border-color(transparent, transparent, transparent, #e15349);
+    @include border-color(transparent, transparent, transparent, #253b7e);
   }
-  .letter {
+  .invitation {
     left: 20px;
     width: 160px;
     height: 60px;
-    background-color: #fff;
+    background-color: #aedef0;
     z-index: 1;
     overflow: hidden;
+    border: 1px solid #000;
     @include transitionDelay(.4s, .2s);
-    .letter-border,
-    .letter-title,
-    .letter-context {
+    .frame {
+      .top-right-frame,
+      .top-left-frame {
+        position: absolute;
+        top: -10px;
+        width: 0;
+        height: 0;
+      }
+      .top-right-frame {
+        right: 0px;
+        @include triangleRightBorder(20px, solid, $base-color);
+        @include simpleTransform(-45deg);
+      }
+      .top-left-frame {
+        left: 0px;
+        @include triangleLeftBorder(20px, solid, $base-color);
+        @include simpleTransform(45deg);
+      }
+    }
+    .invitation-title,
+    .invitation-context .introduction {
       height: 10px;
     }
-    .letter-title,
-    .letter-context {
-      margin-top: 10px;
-      margin-left: 5px;
+    .invitation-title,
+    .invitation-context .introduction,
+    .invitation-context .invitation-stamp,
+    .invitation-context .with,
+    .invitation-context .the-date .col-date {
+      background-color: $base-color;
     }
-    .letter-title,
-    .letter-context,
-    .letter-stamp {
-      background-color: #cb5a5e;
+    .invitation-title,
+    .invitation-context .the-date {
+      margin: 15px auto 0 auto;
     }
-    .letter-stamp {
-      border-radius: 100%;
-      height: 30px;
-    }
-    .letter-border {
-      width: 100%;
-      background: repeating-linear-gradient(-45deg, #cb5a5e, #cb5a5e 8px, transparent 8px, transparent 18px);
-    }
-    .letter-title {
+    .invitation-title {
       width: 40%;
     }
-    .letter-context {
-      width: 20%;
-    }
-    .letter-stamp {
-      margin-top: 30px;
-      margin-left: 120px;
-      width: 30px;
-      opacity: .3;
+    .invitation-context {
+      .introduction {
+        height: 10px;
+      }
+      .with {
+        height: 2px;
+      }
+      .invitation-stamp {
+        border-radius: 100%;
+        height: 30px;
+      }
+      .introduction {
+        width: 50%;
+        margin: 10px auto 15px auto;
+      }
+      .the-bride {
+        width: 30%;
+        background-color: #dab866;
+        height: 5px;
+        margin: 0 auto;
+      }
+      .with {
+        width: 10%;
+        margin: 5px auto;
+      }
+      .the-date,
+      .the-date .col-date {
+        height: 30px;
+      }
+      .the-date {
+        clear: both;
+        width: 80%;
+        .col-date {
+          float: left;
+          width: 45%;
+          background: repeating-linear-gradient(0deg, $base-color, transparent 18%, $base-color 18%);
+          &:first-child {
+            margin-right: 12px;
+          }
+        }
+      }
     }
   }
 }
-.wedding-invitation {
-  .scanned-img,
-  .floating-gmaps,
-  .more-info {
-    opacity: 0;
+.nav-tabs,
+.tab-content {
+  opacity: 0;
+  @include delayAnimation(fadeIn, 2s, 2s, forwards);
+}
+.nav-tabs {
+  background-color: #1A237E;
+  border: none;
+  > li {
+    width: 33.33%;
+    > a {
+      border-radius: 0;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #fff;
+      opacity: .5;
+      &:hover {
+        border-color: transparent;
+        background-color: transparent;
+      }
+    }
+    &.active {
+      > a,
+      > a:hover,
+      > a:focus {
+        color: #fff;
+        background-color: #1A237E;
+        border: initial;
+        border-bottom: 3px solid #fff;
+        opacity: 1;
+      }
+    }
   }
-  .floating-gmaps,
-  .more-info {
-    position: fixed;
-    bottom: 20px;
-  }
-  .scanned-img {
+}
+.tab-content {
+  .invitation-img {
     position: absolute;
-    left: $fiftyPercent;
+    left: $fifty-percent;
     height: auto;
-    top: 0;
-    @include translateTransform(- $fiftyPercent, 0);
-    @include delayAnimation(fadeIn, 2s, 2s, forwards);
+    top: 42px;
+    @include translateTransform(- $fifty-percent, 0);
     @media (min-width: 600px) {
       width: 75%;
     }
@@ -307,36 +413,28 @@ body {
       width: 100%;
     }
   }
-  .floating-gmaps {
-    right: 20px;
-    @include delayAnimation(fadeIn, 2s, 4s, forwards);
-  }
-  .more-info {
-    left: 20px;
-    @include delayAnimation(fadeIn, 2s, 5s, forwards);    
-  }
 }
-.image,
+.amplop,
 .shadow {
-  left: $fiftyPercent;
+  left: $fifty-percent;
 }
-.image,
-.animated-mail {
+.amplop,
+.amplop-animation {
   width: 200px;
 }
-.image {
+.amplop {
   height: 200px;
-  top: $fiftyPercent;
+  top: $fifty-percent;
   position: fixed;
-  @include translateTransform(- $fiftyPercent, - $fiftyPercent);
-  .animated-mail {
+  @include translateTransform(- $fifty-percent, - $fifty-percent);
+  .amplop-animation {
     @include animation(animatedMail, .4s, forwards);
     .top-fold {
       z-index: 0;
       @include animation(topFold, 1s, forwards);
     }
-    .letter {
-      @include animation(letter, 2s, forwards);
+    .invitation {
+      @include animation(invitation, 2s, forwards);
     }
   }
   .shadow {
@@ -348,8 +446,22 @@ body {
   height: 30px;
   top: 200px;
   width: 400px;
-  @include translateXTransform(- $fiftyPercent);
+  @include translateXTransform(- $fifty-percent);
   background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+}
+.floating-gmaps,
+.more-info {
+  opacity: 0;
+  position: fixed;
+  bottom: 20px;
+}
+.floating-gmaps {
+  right: 20px;
+  @include delayAnimation(fadeIn, 2s, 4s, forwards);
+}
+.more-info {
+  left: 20px;
+  @include delayAnimation(fadeIn, 2s, 5s, forwards);
 }
 .blink {
   color: #fff;
